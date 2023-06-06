@@ -1,0 +1,20 @@
+[
+ {
+  "table":"BALSUBT",
+  "data":
+  [
+   {
+    "SPRAS":"D",
+    "OBJECT":"ZGSST",
+    "SUBOBJECT":"ASST_FIJOH",
+    "SUBOBJTXT":"Testschnittstelle ASST_FI (angepasst)"
+   },
+   {
+    "SPRAS":"D",
+    "OBJECT":"ZGSST",
+    "SUBOBJECT":"JOH_TEST",
+    "SUBOBJTXT":"JOH Testschnittstelle"
+   }
+  ]
+ }
+]

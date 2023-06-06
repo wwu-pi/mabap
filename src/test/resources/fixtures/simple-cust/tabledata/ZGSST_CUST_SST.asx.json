@@ -1,0 +1,44 @@
+[
+ {
+  "table":"ZGSST_CUST_SST",
+  "data":
+  [
+   {
+    "MANDT":"501",
+    "SST_ID":"JOH_TEST",
+    "CLASS":"ZGSST_FI_REFERENCE",
+    "SST_NAME":"Testschnittstelle FI",
+    "STRUCTUR":"",
+    "PARK":"",
+    "CHECK_AUTH":"",
+    "GOS_FLG":"",
+    "NKO":"",
+    "NR_RANGE_NR":"",
+    "SUBS_TEST":"",
+    "SUBS_POST":"",
+    "EXPORT":"",
+    "BATCH_FLG":"",
+    "POST_MAN_FORB":"",
+    "SEPERATION_OF_FUNCTIONS":""
+   },
+   {
+    "MANDT":"501",
+    "SST_ID":"JOH_TEST_T",
+    "CLASS":"ANTOTHER_FI_REFERENCE",
+    "SST_NAME":"FI Testschnittstelle",
+    "STRUCTUR":"",
+    "PARK":"",
+    "CHECK_AUTH":"",
+    "GOS_FLG":"",
+    "NKO":"",
+    "NR_RANGE_NR":"",
+    "SUBS_TEST":"",
+    "SUBS_POST":"",
+    "EXPORT":"",
+    "BATCH_FLG":"",
+    "POST_MAN_FORB":"",
+    "SEPERATION_OF_FUNCTIONS":""
+   }
+  ]
+ }
+]

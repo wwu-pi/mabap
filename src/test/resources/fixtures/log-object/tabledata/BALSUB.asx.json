@@ -1,0 +1,16 @@
+[
+ {
+  "table":"BALSUB",
+  "data":
+  [
+   {
+    "OBJECT":"ZGSST",
+    "SUBOBJECT":"ASST_FIJOH"
+   },
+   {
+    "OBJECT":"ZGSST",
+    "SUBOBJECT":"JOH_TEST"
+   }
+  ]
+ }
+]

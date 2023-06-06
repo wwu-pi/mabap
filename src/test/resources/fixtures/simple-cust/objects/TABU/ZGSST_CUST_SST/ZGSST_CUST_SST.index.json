@@ -1,0 +1,36 @@
+[
+ {
+  "table":"ZGSST_CUST_SST",
+  "index":
+  [
+   {
+    "columns":
+    [
+     {
+      "key":"MANDT",
+      "value":"501"
+     },
+     {
+      "key":"SST_ID",
+      "value":"JOH_TEST"
+     }
+    ],
+    "hash":"i7/vUO+UJ6oY+kyQN3IZLZZOkgI="
+   },
+   {
+    "columns":
+    [
+     {
+      "key":"MANDT",
+      "value":"501"
+     },
+     {
+      "key":"SST_ID",
+      "value":"JOH_TEST_T"
+     }
+    ],
+    "hash":"sYDKuq0hMQflPNPXICjF4tmWcIs="
+   }
+  ]
+ }
+]
