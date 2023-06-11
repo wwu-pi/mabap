@@ -367,7 +367,7 @@ class ClasTableGenerator {
 		    "SCONAME":"«param.getName.toUpperCase»",
 		    "CMPTYPE":1,
 		    "MTDTYPE":0,
-		    "SCOTYPE":«if (param.getObjectType == ObjectType.RAISE) "1" else "0"»
+		    "SCOTYPE":«if (param.getObjectType == ObjectType.RAISING) "1" else "0"»
 		   }
 		  «ENDFOR»
 		  «ENDFOR»
@@ -396,9 +396,9 @@ class ClasTableGenerator {
 		    "CREATEDON":"«generateFormattedDate»",
 		    "CHANGEDBY":"",
 		    "CHANGEDON":"0000-00-00",
-		    "PARDECLTYP":«if (param.getObjectType == ObjectType.EXPORT) "1" else "0"»,«/* 0: Import, 1: Export, 0: Raise */»
-		    "PARPASSTYP":«if (param.getObjectType == ObjectType.RAISE) "0" else "1"»,«/* 1: Import,Export 0: Raise */»
-		    "TYPTYPE":«if (param.getObjectType == ObjectType.RAISE) "0" else if (param.getType.toUpperCase.contains("ZCL_")) "3" else "1"»,«/* 0: Exception Class, 1: Datatype (global or local), 3: Class reference */»
+		    "PARDECLTYP":«if (param.getObjectType == ObjectType.EXPORTING) "1" else "0"»,«/* 0: Import, 1: Export, 0: Raise */»
+		    "PARPASSTYP":«if (param.getObjectType == ObjectType.RAISING) "0" else "1"»,«/* 1: Import,Export 0: Raise */»
+		    "TYPTYPE":«if (param.getObjectType == ObjectType.RAISING) "0" else if (param.getType.toUpperCase.contains("ZCL_")) "3" else "1"»,«/* 0: Exception Class, 1: Datatype (global or local), 3: Class reference */»
 		    "TYPE":"«if (param.getType !== null) param.getType.toUpperCase»",
 		    "TABLEOF":"",
 		    "SRCROW1":0,

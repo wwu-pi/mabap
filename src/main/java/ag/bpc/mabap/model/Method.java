@@ -46,20 +46,20 @@ public class Method extends ClassElement {
 	}
 
 	public List<Parameter> getImports() {
-		return this.parameters.stream().filter(p -> p.getObjectType() == ObjectType.IMPORT)
+		return this.parameters.stream().filter(p -> p.getObjectType() == ObjectType.IMPORTING)
 				.collect(Collectors.toList());
 	}
 
 	public void addImportFromParams(String name, String type) {
-		this.parameters.add(new Parameter(ObjectType.IMPORT, name, type));
+		this.parameters.add(new Parameter(ObjectType.IMPORTING, name, type));
 	}
 
 	public void addImportFromParams(String name, String type, boolean reference) {
-		this.parameters.add(new Parameter(ObjectType.IMPORT, name, type, reference));
+		this.parameters.add(new Parameter(ObjectType.IMPORTING, name, type, reference));
 	}
 
 	public List<Parameter> getExports() {
-		return this.parameters.stream().filter(p -> p.getObjectType() == ObjectType.EXPORT)
+		return this.parameters.stream().filter(p -> p.getObjectType() == ObjectType.EXPORTING)
 				.collect(Collectors.toList());
 	}
 
@@ -68,11 +68,11 @@ public class Method extends ClassElement {
 	}
 
 	public void addExportFromParams(String name, String type) {
-		this.parameters.add(new Parameter(ObjectType.EXPORT, name, type));
+		this.parameters.add(new Parameter(ObjectType.EXPORTING, name, type));
 	}
 
 	public void addExportFromParams(String name, String type, boolean reference) {
-		this.parameters.add(new Parameter(ObjectType.EXPORT, name, type, reference));
+		this.parameters.add(new Parameter(ObjectType.EXPORTING, name, type, reference));
 	}
 
 	public List<Parameter> getImportsAndExports() {
@@ -92,12 +92,12 @@ public class Method extends ClassElement {
 	}
 
 	public List<Parameter> getRaises() {
-		return this.parameters.stream().filter(p -> p.getObjectType() == ObjectType.RAISE)
+		return this.parameters.stream().filter(p -> p.getObjectType() == ObjectType.RAISING)
 				.collect(Collectors.toList());
 	}
 
 	public void addRaise(String raiseName) {
-		this.parameters.add(new Parameter(ObjectType.RAISE, raiseName));
+		this.parameters.add(new Parameter(ObjectType.RAISING, raiseName));
 	}
 
 	public void setBody(String body) {
@@ -122,7 +122,7 @@ public class Method extends ClassElement {
 	 * @return
 	 */
 	public int getEditOrderOfParam(Parameter param) {
-		if (param.getObjectType() == ObjectType.RAISE) {
+		if (param.getObjectType() == ObjectType.RAISING) {
 			return this.getRaises().indexOf(param) + 1;
 		}
 		return this.getImportsAndExports().indexOf(param) + 1;

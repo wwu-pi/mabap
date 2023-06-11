@@ -7,7 +7,7 @@ public class Parameter {
 	private ObjectType objectType;
 
 	public Parameter(ObjectType objectType, String name) {
-		if (objectType != ObjectType.RAISE) {
+		if (objectType != ObjectType.RAISING) {
 			throw new IllegalArgumentException("Other types than RAISE must define a TYPE.");
 		}
 		this.name = name;
