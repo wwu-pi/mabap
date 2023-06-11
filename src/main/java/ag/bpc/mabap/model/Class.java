@@ -11,30 +11,34 @@ public class Class {
 	private String name;
 	private String uuid;
 	private Package devPackage;
-	private String superClass;
+	private Class superClass;
 	private String author;
 	private String description;
 	private String client;
 	private LocalDateTime createdAt;
 	
-	private List<Method> methods;
-	private List<Attribute> clasAttributes;
-	private List<DataType> localDataTypes;
+	private List<Method> methods = new ArrayList<Method>();
+	private List<Attribute> clasAttributes = new ArrayList<Attribute>();
+	private List<DataType> localDataTypes = new ArrayList<DataType>();
+	
+	public Class(String name, String uuid, String author, String client, LocalDateTime createdAt) {
+		this.name = name;
+		this.uuid = uuid;
+		this.author = author;
+		this.client = client;
+		this.createdAt = createdAt;
+	}
 
 	public Class(String name, String uuid, String devPackage, String superClass, String author, String description,
 			String client, LocalDateTime createdAt) {
-		super();
 		this.name = name;
 		this.uuid = uuid;
 		this.devPackage = new Package(devPackage, null, null, null);
-		this.superClass = superClass;
+		this.superClass = new Class(superClass, uuid, author, client, createdAt);
 		this.author = author;
 		this.description = description;
 		this.client = client;
 		this.createdAt = createdAt;
-		this.methods = new ArrayList<Method>();
-		this.clasAttributes = new ArrayList<Attribute>();
-		this.localDataTypes = new ArrayList<DataType>();
 	}
 
 	public String getName() {
@@ -61,11 +65,11 @@ public class Class {
 		this.devPackage.setName(devPackage);
 	}
 
-	public String getSuperClass() {
+	public Class getSuperClass() {
 		return superClass;
 	}
 
-	public void setSuperClass(String superClass) {
+	public void setSuperClass(Class superClass) {
 		this.superClass = superClass;
 	}
 

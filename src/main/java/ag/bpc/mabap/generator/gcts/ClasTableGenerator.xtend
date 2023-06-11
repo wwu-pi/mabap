@@ -114,7 +114,7 @@ class ClasTableGenerator {
 		  [
 		   {
 		    "CLSNAME":"«clas.getName»",
-		    "REFCLSNAME":"«clas.getSuperClass»",
+		    "REFCLSNAME":"«clas.getSuperClass.name»",
 		    "VERSION":1,
 		    "STATE":1,
 		    "AUTHOR":"«clas.getAuthor»",
@@ -138,7 +138,7 @@ class ClasTableGenerator {
 		   «FOR method : clas.redefinedMethods SEPARATOR ','»
 		   {
 		    "CLSNAME":"«clas.getName»",
-		    "REFCLSNAME":"«clas.getSuperClass»",
+		    "REFCLSNAME":"«clas.getSuperClass.name»",
 		    "VERSION":1,
 		    "MTDNAME":"«method.getName.toUpperCase»",
 		    "MTDABSTRCT":"",

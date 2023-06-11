@@ -9,18 +9,23 @@ public class Package {
 	public static final String DEFAULT_NAMESPACE = "/0CUST/";
 
 	String name;
-	String parent;
+	Package parent;
 	String author;
 	String description;
 	String softwareComponent;
 	String namespace;
 	String transportLayer;
 	LocalDateTime createdAt;
+	
+	public Package(String name, String author, LocalDateTime createdAt) {
+		this.name = name;
+		this.author = author;
+		this.createdAt = LocalDateTime.now();
+	}
 
 	public Package(String name, String parent, String author, String description) {
-		super();
 		this.name = name;
-		this.parent = parent;
+		this.parent = new Package(parent, author, LocalDateTime.now());
 		this.author = author;
 		this.description = description;
 		this.softwareComponent = DEFAULT_SOFTWARE_COMPONENT;
@@ -33,7 +38,7 @@ public class Package {
 			String transportLayer, LocalDateTime createdAt) {
 		super();
 		this.name = name;
-		this.parent = parent;
+		this.parent = new Package(parent, author, createdAt);
 		this.softwareComponent = softwareComponent;
 		this.namespace = namespace;
 		this.author = author;
@@ -50,11 +55,11 @@ public class Package {
 		this.name = name;
 	}
 
-	public String getParent() {
+	public Package getParent() {
 		return parent;
 	}
 
-	public void setParent(String parent) {
+	public void setParent(Package parent) {
 		this.parent = parent;
 	}
 

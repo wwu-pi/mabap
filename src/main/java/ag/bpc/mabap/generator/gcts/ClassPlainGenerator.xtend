@@ -37,7 +37,7 @@ class ClassPlainGenerator {
 		'''
 		CLASS «clas.getName» DEFINITION
 		  PUBLIC
-		  «IF clas.getSuperClass !== null »INHERITING FROM «clas.getSuperClass»«ENDIF»
+		  «IF clas.getSuperClass !== null »INHERITING FROM «clas.getSuperClass.name»«ENDIF»
 		  FINAL
 		  CREATE PUBLIC .
 		

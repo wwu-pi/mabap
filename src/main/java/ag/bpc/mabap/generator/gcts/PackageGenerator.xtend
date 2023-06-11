@@ -73,7 +73,7 @@ class PackageGenerator {
 			    "NAMESPACE":"«pkg.getNamespace»",
 			    "TPCLASS":"",
 			    "SHIPMENT":"",
-			    "PARENTCL":"«pkg.getParent»",
+			    "PARENTCL":"«pkg.getParent.name»",
 			    "APPLICAT":"",
 			    "ERRSEVRTY":"",
 			    "PERMINHER":"",
