@@ -1,0 +1,45 @@
+Template zcl_gsst_earfund_head {
+	ident		type char5
+	belnr		type kblnr		to av_belnr			description "Belegnummer"
+	blart						to av_belart	    description "Belegart"
+	bltyp		type kbltyp		to av_bltyp			description "Belegtyp"
+	bldat						to av_bldat			description "Belegdatum"
+	budat       				to av_budat			description "Buchungsdatum"
+	bukrs						to av_bukrs			description "Buchungskreis"
+	xblnr						to av_xblnr			description "Referenz Belegnummer"
+	fmre_xblnr2					to av_fmre_xblnr2	description	"Referenz 2"
+	fmre_xblnr3 				to av_fmre_xblnr3	description "Referenz 3"
+	ktext       type kblktext	to av_ktext			description "Belegkopf Text"
+	zzdata      type dats		to av_zzdata		description "Gültig ab"
+	zzdatb      type dats		to av_zzdatb		description "Gültig bis"
+	zzavert     type char20		to av_zzavert		description "Vertragsnummer"
+	zzfte       type char1		to av_zzfte			description "Vollzeitäquivalent"
+	zzent       type char3		to av_zzent			description "Entgeldgruppe"
+	update      type char1		to av_update		description "Aktualisieren"
+	fexec       type xfeld		to av_xfeld			description	"Beleg erledigt"
+}
+
+Template zcl_gsst_earfund_pos {
+	ident		type char5
+	blpos		type kblpos
+	fipos						to av_fipos			description "Finanzposition"
+	geber		type bp_geber	to av_geber			description "Fonds"
+	kostl						to av_kostl			description "Kostenstelle"
+	wrbtr		type wrbtr_cs	to av_wrbtr			description "Betrag in Belegwährung"
+	fdatk		type kblfdatk	to av_fdatk			description "Fälligkeitsdatum Kosten"
+	ptext		type sgtxt		to av_ptext			description "Positionstext"
+	lifnr						to av_lifnr			description "Kontonummer Lieferant"
+	ps_psp_pnr					to av_ps_psp_pnr	description "PSP Element"
+	stats		type fmre_stats	to av_stats			description "Statistikkennzeichen Haushaltsmanagement"
+	consumekz	type fmconsume	to av_consumekz		description "Verbrauch darf Reserve überschreiten"
+	uebto		type fmuebto	to av_uebto			description "Toleranzgrenze für Überziehung"
+	abgwaers	type fmabgwaers	to av_abgwaers		description "Abbau nur in Hauswährung"
+	carryov						to av_carryov		description "Kein Vortrag offener Beträge"
+	acchang		type fm_acchang	to av_acchang		description "HHM-Kontierung Folgebetrag änderbar"
+	refseterlk					to av_refseterlk	description "Verbrauchte Mittelvormerkung erledigt setzen"
+	saknr						to av_saknr			description "Nummer des Sachkontos"
+	kunnr						to av_kunnr			description	"Debitorennummer"
+	blpkz						to av_blpkz			description	"Blockierungskennzeichen"
+	erlkz		type fmre_erlkz	to av_erlkz			description "Erledigtkennzeichen"
+	flag_delpos type char1		to av_flag_delpos	description "Einstelliges Kennzeichen"
+}

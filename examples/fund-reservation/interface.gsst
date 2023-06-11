@@ -1,0 +1,95 @@
+Repository "zgsst-example-fund-reservation"
+
+Interface ZCL_GSST_CONV_EXAMPLE_FUND_RES in ZGSST_EXAMPLE_FUND_RES {
+	Description: 		"Example Interface Fund Reservation"
+	PackageDescription: "Example Fund Reservation"
+	CockpitID: 			"EXMPL_FUND" 
+	Author: 			"HOCHSTRAT"
+	DevClient: 			"001"
+	CustClient: 		"501"
+	ClassUUID: 			"FV0BZxQe3ZmAqjQ4LYD7"
+	CustHash: 			"i7/vUO+UJ6oY+kyQN3IZLZZOkgI="
+	PackageParent: 		"ZGSST_SST"
+	
+	DataSource: {
+		File type CSV as Upload
+	}
+  
+	ImportStructure: {
+		fund
+	}
+}
+
+Object tableof(key col(1)) zcl_gsst_earfund_head fund template zcl_gsst_earfund_head id(object_id type zgsst_de_objectid) {
+	ident type char5 from col(1) to ident
+	belnr type kblnr from SimpleFunction(col(2), "CONVERSION_EXIT_ALPHA_INPUT", "c LENGTH 100") to av_belnr
+	bltyp type kbltyp from col(3) to av_bltyp
+	bldat from SimpleFunction(col(4), 
+		"CONVERT_DATE_TO_INTERNAL", 
+		"c LENGTH 100", 
+		"date_external", 
+		"date_internal"
+	) to av_bldat
+	budat from SimpleFunction(col(5), 
+		"CONVERT_DATE_TO_INTERNAL", 
+		"c LENGTH 100", 
+		"date_external", 
+		"date_internal"
+	) to av_budat
+	blart from col(6) to av_belart
+	xblnr from col(7) to av_xblnr
+	fmre_xblnr2 from col(8) to av_fmre_xblnr2
+	fmre_xblnr3 from col(9) to av_fmre_xblnr3
+	bukrs from col(10) to av_bukrs
+	ktext type kblktext from col(11) to av_ktext
+	zzdata type dats from SimpleFunction(col(12), 
+		"CONVERT_DATE_TO_INTERNAL", 
+		"c LENGTH 100", 
+		"date_external", 
+		"date_internal"
+	) to av_zzdata
+	zzdatb type dats from SimpleFunction(col(13), 
+		"CONVERT_DATE_TO_INTERNAL", 
+		"c LENGTH 100", 
+		"date_external", 
+		"date_internal"
+	) to av_zzdatb
+	zzavert type char20 from col(14) to av_zzavert
+	zzfte type char1 from col(15) to av_zzfte
+	zzent type char3 from col(16) to av_zzent
+	update type char1 from col(17) to av_update
+	fexec type xfeld from col(18) to av_xfeld
+	
+	Object tableof zcl_gsst_earfund_pos pos template zcl_gsst_earfund_pos id(pos_id type zgsst_de_posid) to add_pos {
+		ident type char5 from col(19) to ident
+		fipos from SimpleFunction(col(20), "CONVERSION_EXIT_ALPHA_INPUT", "c LENGTH 100") to av_fipos
+		geber type bp_geber from col(21) to av_geber
+		kostl from SimpleFunction(col(22), "CONVERSION_EXIT_ALPHA_INPUT", "c LENGTH 100") to av_kostl
+		wrbtr type wrbtr_cs from Replace(col(23), ",", ".") to av_wrbtr
+		fdatk type kblfdatk from SimpleFunction(col(24), 
+			"CONVERT_DATE_TO_INTERNAL", 
+			"c LENGTH 100", 
+			"date_external", 
+			"date_internal"
+		) to av_fdatk
+		ptext type sgtxt from col(25) to av_ptext
+		lifnr from col(26) to av_lifnr
+		ps_psp_pnr from SimpleFunction(
+			SimpleFunction(
+				col(27), "CONVERSION_EXIT_ABPSP_INPUT", "ps_psp_pnr"
+			), "CONVERSION_EXIT_ALPHA_INPUT", "ps_psp_pnr"
+		) to av_ps_psp_pnr
+		stats type fmre_stats from col(28) to av_stats
+		consumekz type fmconsume from col(29) to av_consumekz
+		uebto type fmuebto from Replace(col(30), ",", ".") to av_uebto
+		abgwaers type fmabgwaers from col(31) to av_abgwaers
+		carryov from col(32) to av_carryov
+		acchang type fm_acchang from col(33) to av_acchang
+		refseterlk from col(34) to av_refseterlk
+		saknr from SimpleFunction(col(35), "CONVERSION_EXIT_ALPHA_INPUT", "c LENGTH 100") to av_saknr
+		kunnr from col(36) to av_kunnr
+		blpkz from col(37) to av_blpkz
+		erlkz type fmre_erlkz from col(38) to av_erlkz
+		flag_delpos type char1 from col(39) to av_flag_delpos
+	}
+}

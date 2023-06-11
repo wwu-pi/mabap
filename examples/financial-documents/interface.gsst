@@ -1,0 +1,201 @@
+Repository "zgsst-example-fi-document"
+
+Interface ZCL_GSST_CONV_EXAMPLE_FI_DOC in ZGSST_EXAMPLE_FI_DOC {
+	Description: 		"Example Interface Finance Document"
+	PackageDescription: "Example FI Document"
+	CockpitID: 			"EXAMPL_FI" 
+	Author: 			"HOCHSTRAT"
+	DevClient: 			"001"
+	CustClient: 		"501"
+	ClassUUID: 			"FV0BZxQe3Zi04G5kZqD7"
+	CustHash: 			"X7vKiGYtYT6r5rnT38DPJd490jw="
+	PackageParent: 		"ZGSST_SST"
+	
+	DataSource: {
+		File type CSV as Upload
+	}
+  
+	ImportStructure: {
+		document
+	}
+}
+
+Object tableof(key col(1)) zcl_gsst_document document template zcl_gsst_document id(objectid type zgsst_de_objectid) {
+	bukrs from static("4000") to av_bukrs
+	belid type docnr from col(1)
+	blart from TableLookup(col(2),
+		SELECT SINGLE blart 
+		FROM zdsi_map_blart 
+		WHERE "typ = !!SOURCE"
+	) to av_blart
+	bldat from Custom(col(3), ```
+		DATA !!RESULT TYPE bldat.
+		IF !!SOURCE EQ '0'.
+		  !!RESULT = sy-datum.
+		ELSE.
+		  !!RESULT = !!SOURCE.
+		ENDIF.
+	```) to av_bldat
+	budat from col(4) to av_budat
+	xblnr from UpperCase(col(5)) to av_xblnr
+	bktxt from col(6) to av_bktxt
+	waers from col(7) to Custom(av_waers, ```
+		DATA !!RESULT type waers.
+		IF !!SOURCE is INITIAL.
+			!!RESULT = 'EUR'.
+		ELSE.
+			!!RESULT = !!SOURCE. 
+		ENDIF.
+	```)
+	kursf from Replace(col(8), ",", ".")
+	wwert from col(9)
+	xmwst type zgsst_de_xmwst from col(10) to av_xmwst
+	xskon type zgsst_de_xskon from col(11) to av_xskon
+	gjahr from static("") to Custom(av_gjahr, ```
+		DATA !!RESULT type gjahr.
+		!!RESULT = !!THIS-budat(4). 
+	```)
+	monat from static("") to Custom(av_monat, ```
+		DATA !!RESULT type monat.
+		!!RESULT = !!THIS-budat+4(2).
+	```)
+	
+	cf_1 type zgsst_de_cf1 from col(12) to av_cf_1
+	cf_2 type zgsst_de_cf2 from col(13) to av_cf_2
+	cf_3 type zgsst_de_cf3 from col(14) to av_cf_3
+	cf_4 type zgsst_de_cf4 from col(15) to av_cf_4
+	
+	Variations {
+		when (bpos.kunnr is FILLED) : Variation zcl_gsst_inv_out inv_out template zcl_gsst_document returns(ro_inv_out) {}
+		when (bpos.lifnr is FILLED) : Variation zcl_gsst_inv_inc inv_inc template zcl_gsst_document returns(ro_inv_inc) {}
+		default : Variation zcl_gsst_gl_post post_gl template zcl_gsst_document returns(r_gl_post) {}
+	}
+	
+	Object tableof zcl_gsst_pos bpos template zcl_gsst_pos id(posid type zgsst_de_posid) to add_pos {
+		buzei from col(16) to buzei
+		buzid from col(17) to buzid
+		shkzg from col(18) to shkzg
+		wrbtr type zgsst_de_wrbtr from Replace(col(19), ",", ".") to wrbtr
+		wrbtr_org type zgsst_de_wrbtr_org from Replace(col(19), ",", ".") to wrbtr_org
+		mwskz from col(20)
+		zuonr type dzuonr from col(21) to zuonr
+		sgtxt from col(22) to sgtxt
+		kostl from col(23)
+		aufnr from col(24)
+		pspel type ps_posid from col(25)
+		geber type fm_fonds from col(26)
+		hkont from col(27)
+		kunnr from col(28)
+		lifnr from col(29)
+		valut type valuta from col(30) 
+		zfbdt type dzfbdt from col(31)
+		zterm type dzterm from col(32)
+		zlsch type dzlsch from col(33) 
+		zlspr type dzlspr from col(34)
+		bvtyp from col(35)
+		mansp from col(36)
+		res_doc type kblnr from col(58)
+		res_item type kblpos from col(59)
+		cmmt_item_ext type fm_fipex from col(60)
+		fund_ctr type fistl from col(61)
+		gsber from col(62)
+		 
+		Variations {
+			when (buzid is "T"): Variation zcl_gsst_pos_tax pos_tax template zcl_gsst_pos_tax {
+				gsber to gsber
+				hkont to dset_hkont_blank
+			}
+			when (buzid is "Z"): Variation zcl_gsst_pos_discount pos_discount template zcl_gsst_pos_discount {
+				gsber to gsber
+				hkont to dset_hkont_blank
+				valut to valut
+			}
+			when (lifnr is FILLED): Variation zcl_gsst_pos_vendor pos_vendor template zcl_gsst_pos_vendor {
+				gsber to gsber
+				bvtyp to bvtyp
+				lifnr to dset_lifnr_blank
+				zfbdt to zfbdt
+				zlsch to zlsch
+				zlspr to zlspr
+				zterm to SimpleFunction(zterm, "CONVERSION_EXIT_ALPHA_INPUT", "dzterm")
+			}
+			when (kunnr is FILLED): Variation zcl_gsst_pos_customer pos_customer template zcl_gsst_pos_customer {
+				gsber to gsber
+				bvtyp to bvtyp
+				kunnr to dset_kunnr_blank
+				mansp to mansp
+				zfbdt to zfbdt
+				zlsch to zlsch
+				zlspr to zlspr
+				zterm to zterm
+			}
+			default : Variation zcl_gsst_pos_gl pos_gl template zcl_gsst_pos_gl {
+				res_doc to dset_res_doc
+				res_item to res_item
+				aufnr to dset_aufnr_blank
+				geber to geber
+				hkont to dset_hkont_blank
+				kostl to dset_kostl_blank
+				mwskz to mwskz
+				pspel to dset_pspel_blank
+				valut to valut
+				gsber to gsber
+				fund_ctr to fund_ctr
+				cmmt_item_ext to SimpleFunction(cmmt_item, "CONVERSION_EXIT_FMCIS_INPUT", "fipos")
+			}
+		}
+	
+		optional Object zcl_gsst_cpd cpd template zcl_gsst_cpd returns (ro_cpd) {
+			anred from col(37) to anred
+			name1 from col(38) to name1
+			name2 from col(39) to name2
+			name3 type name2 from col(40) to name3
+			name4 type name2 from col(41) to name4
+			pstlz from col(42) to pstlz
+			ort01 from col(43) to ort01
+			land1 from col(44) to land1
+			stras from col(45) to stras
+			pfach from col(46) to pfach
+			pstl2 from col(47) to pstl2
+			bankn from col(48) to bankn
+			bankl from col(49) to bankl
+			banks from col(50) to banks
+			iban from col(51) to iban
+			swift from col(52) to swift
+			stkzu from UpperCase(col(53)) to stkzu
+			stcd1 from col(54) to stcd1
+			stcd2 from col(55) to stcd2
+			stcd3 from col(56) to stcd3
+			stcd4 from col(57) to stcd4
+			
+			
+			Code {
+			``` 
+			DATA ls_cpd TYPE bapiacpa09.
+			
+			!!ITHIS->map_to_bapi(
+	            IMPORTING
+	              es_customer_cpd = ls_cpd
+	          ).
+	        IF lo_pos_vendor IS NOT INITIAL.
+	          lo_pos_vendor->set_as_cpd( i_as_cpd = ls_cpd ).
+	        ENDIF.
+	        IF lo_pos_customer IS NOT INITIAL.
+	          lo_pos_customer->set_as_cpd( i_as_cpd = ls_cpd ).
+	        ENDIF.
+			```
+			}
+		}
+		
+		Code {
+			```
+			IF !!ITHIS->get_shkzg( ) EQ 'H'.
+          		DATA(lv_wrbtr) = !!ITHIS->get_wrbtr( ).
+          		lv_wrbtr = ( -1 ) * abs( lv_wrbtr ).
+          		!!ITHIS->set_wrbtr( i_wrbtr = lv_wrbtr ).
+          		!!ITHIS->set_wrbtr_org( i_wrbtr_org = lv_wrbtr ).
+        	ENDIF.
+			```
+		}
+	}
+}
