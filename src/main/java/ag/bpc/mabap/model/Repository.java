@@ -7,7 +7,7 @@ public class Repository {
 
 	private String name;
 	private List<Class> classes;
-	private List<Customizing> customizings;
+	private List<Customization> customizations;
 	private List<Package> packages;
 	private List<MessageClass> messageClasses;
 	private List<LogObject> logObjects;
@@ -16,7 +16,7 @@ public class Repository {
 		super();
 		this.name = "test-repository";
 		this.classes = new ArrayList<Class>();
-		this.customizings = new ArrayList<Customizing>();
+		this.customizations = new ArrayList<Customization>();
 		this.packages = new ArrayList<Package>();
 		this.messageClasses = new ArrayList<MessageClass>();
 		this.logObjects = new ArrayList<LogObject>();
@@ -26,18 +26,18 @@ public class Repository {
 		super();
 		this.name = name;
 		this.classes = new ArrayList<Class>();
-		this.customizings = new ArrayList<Customizing>();
+		this.customizations = new ArrayList<Customization>();
 		this.packages = new ArrayList<Package>();
 		this.messageClasses = new ArrayList<MessageClass>();
 		this.logObjects = new ArrayList<LogObject>();
 	}
 
-	public Repository(String name, List<Class> classes, List<Customizing> customizings, List<Package> packages,
+	public Repository(String name, List<Class> classes, List<Customization> customizations, List<Package> packages,
 			List<MessageClass> messageClasses, List<LogObject> logObjects) {
 		super();
 		this.name = name;
 		this.classes = classes;
-		this.customizings = customizings;
+		this.customizations = customizations;
 		this.packages = packages;
 		this.messageClasses = messageClasses;
 		this.logObjects = logObjects;
@@ -66,16 +66,16 @@ public class Repository {
 		this.classes.add(clas);
 	}
 
-	public List<Customizing> getCustomizings() {
-		return customizings;
+	public List<Customization> getCustomizations() {
+		return customizations;
 	}
 
-	public void setCustomizings(List<Customizing> customizings) {
-		this.customizings = customizings;
+	public void setCustomizations(List<Customization> customizations) {
+		this.customizations = customizations;
 	}
 
-	public void addCustomizing(Customizing cust) {
-		this.customizings.add(cust);
+	public void addCustomization(Customization cust) {
+		this.customizations.add(cust);
 	}
 
 	public List<Package> getPackages() {

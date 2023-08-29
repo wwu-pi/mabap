@@ -2,10 +2,10 @@ package ag.bpc.mabap.generator.gcts
 
 import ag.bpc.mabap.model.Repository
 import org.eclipse.xtext.generator.IFileSystemAccess2
-import ag.bpc.mabap.model.Customizing
 import java.util.stream.Collectors
+import ag.bpc.mabap.model.Customization
 
-class CustomizingsGenerator {
+class CustomizationGenerator {
 	
 	static val TABU_DIR = "objects/TABU/"
 	static val TABLE_DATA_DIR = "tabledata/"
@@ -19,12 +19,12 @@ class CustomizingsGenerator {
 	}
 
 	def generate() {
-		for (table : groupCustomizingsByTable.keySet()) {
-			generateCustomizingsForTable(table, groupCustomizingsByTable.get(table))
+		for (table : groupCustomizationsByTable.keySet()) {
+			generateCustomizationsForTable(table, groupCustomizationsByTable.get(table))
 		}
 	}
 	
-	private def void generateCustomizingsForTable(String tableName, Customizing[] custs) {
+	private def void generateCustomizationsForTable(String tableName, Customization[] custs) {
 		fsa.generateFile(TABU_DIR + tableName.toUpperCase() +".index.json",
 			'''
 			[
@@ -36,14 +36,14 @@ class CustomizingsGenerator {
 			   {
 			    "columns":
 			    [
-			     «FOR key : cust.keys SEPARATOR ","»
+			     «FOR key : cust.getKeys SEPARATOR ","»
 			     {
 			      "key":"«key»",
-			      "value":"«cust.values.get(key)»"
+			      "value":"«cust.getValues.get(key)»"
 			     }
 			     «ENDFOR»
 			    ],
-			    "hash":"«cust.hash»"
+			    "hash":"«cust.getHash»"
 			   }
 			   «ENDFOR»
 			  ]
@@ -60,8 +60,8 @@ class CustomizingsGenerator {
 			  [
 			   «FOR cust : custs SEPARATOR ","»
 			   {
-			    «FOR key : cust.values.keySet() SEPARATOR ","»
-			      "«key»":"«cust.values.get(key)»"
+			    «FOR key : cust.getValues.keySet() SEPARATOR ","»
+			      "«key»":"«cust.getValues.get(key)»"
 			    «ENDFOR»
 			   }
 			   «ENDFOR»
@@ -72,8 +72,8 @@ class CustomizingsGenerator {
 		
 	}
 
-	private def groupCustomizingsByTable() {
-		repo.customizings.stream().collect(Collectors.groupingBy([c|c.table]))
+	private def groupCustomizationsByTable() {
+		repo.customizations.stream().collect(Collectors.groupingBy([c|c.getTable]))
 	}
 
 }

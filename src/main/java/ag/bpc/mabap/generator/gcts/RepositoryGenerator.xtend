@@ -11,7 +11,7 @@ class RepositoryGenerator {
 	
 	public static val CLAS = "CLASS"
 	public static val PLAIN_CLAS = "PLAIN_CLASS"
-	public static val CUSTOMIZING = "CUSTOMIZING"
+	public static val CUSTOMIZATION = "CUSTOMIZATION"
 	public static val PACKAGE = "PACKAGE"
 	public static val METADATA = "METADATA"
 	public static val LOG_OBJECT = "LOG_OBJECT"
@@ -26,7 +26,7 @@ class RepositoryGenerator {
 	def generate() {
 		// if nothing has been provided, generate everything
 		if (objectsToGenerate === null || objectsToGenerate.size == 0) {
-			objectsToGenerate = newArrayList(CLAS, PLAIN_CLAS, CUSTOMIZING, PACKAGE, METADATA, LOG_OBJECT)
+			objectsToGenerate = newArrayList(CLAS, PLAIN_CLAS, CUSTOMIZATION, PACKAGE, METADATA, LOG_OBJECT)
 		}
 		
 		if (objectsToGenerate.contains(METADATA)) {
@@ -38,8 +38,8 @@ class RepositoryGenerator {
 		if (objectsToGenerate.contains(PLAIN_CLAS)) {
 			new ClassPlainGenerator(fsa, repo).generate
 		}
-		if (objectsToGenerate.contains(CUSTOMIZING)) {
-			new CustomizingsGenerator(fsa, repo).generate
+		if (objectsToGenerate.contains(CUSTOMIZATION)) {
+			new CustomizationGenerator(fsa, repo).generate
 		}
 		if (objectsToGenerate.contains(PACKAGE)) {
 			new PackageGenerator(fsa, repo).generate

@@ -4,11 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Customizing {
+public class Customization {
 
 	/**
 	 * Copies a given static customization map to be edited and used in
-	 * Customizings.
+	 * Customizations.
 	 * 
 	 * @param staticMap
 	 * @return
@@ -25,7 +25,7 @@ public class Customizing {
 	private List<String> keys;
 
 	/**
-	 * Creates a new Customizing
+	 * Creates a new Customization
 	 * 
 	 * @param table
 	 * @param hash
@@ -33,7 +33,7 @@ public class Customizing {
 	 * @param values
 	 * @param keys
 	 */
-	public Customizing(String table, String hash, String client, Map<String, String> values, List<String> keys) {
+	public Customization(String table, String hash, String client, Map<String, String> values, List<String> keys) {
 		super();
 		this.table = table;
 		this.hash = hash;
